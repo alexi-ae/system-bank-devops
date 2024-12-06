@@ -1,0 +1,7 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/db-bank-system
+    username: userbanksystem
+    password: sql
+server:
+  port: 8081
