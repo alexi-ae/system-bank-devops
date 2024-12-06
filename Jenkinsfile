@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         // Variables globales
-        DOCKER_IMAGE = 'my-app-image'
-        IMAGE_NAME = 'my-app-container'
+        DOCKER_IMAGE = 'system-bank-devops-image'
+        IMAGE_NAME = 'system-bank-devops-container'
     }
     stages {
         stage('Checkout') {
