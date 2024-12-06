@@ -25,9 +25,6 @@ pipeline {
                 script {
                     // Verifica si el archivo JAR está presente
                     sh 'ls -l target/'
-
-                    // Verifica si el archivo JAR está presente
-                    sh 'ls -l app/'
                     // Construye la imagen Docker
                     sh '''
                     docker build -t ${DOCKER_IMAGE} .
