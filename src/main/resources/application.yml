@@ -1,7 +1,21 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/db-bank-system
+    url: r2dbc:postgresql://localhost:5432/db-bank-system-devops
     username: userbanksystem
     password: sql
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: authdb
+      timeout: 60000
 server:
   port: 8081
+
+security:
+  jwt:
+    time: 1000
+    secret: 33743677397A24432646294A404D635166546A576E5A7234753778214125442A
+  get:
+    token:
+      uri: /authenticate
