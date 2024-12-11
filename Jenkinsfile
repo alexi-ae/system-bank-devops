@@ -9,11 +9,16 @@ pipeline {
         stage('Prepare Environment') {
                 steps {
                     script {
+                        sh 'docker network create system-bank-devops-network || true'
+                    }
+                }
+                steps {
+                    script {
                         // Levantar contenedor de PostgreSQL
-                        sh 'docker run -d --name postgres -p 5433:5432 -e POSTGRES_USER=userbanksystem -e POSTGRES_PASSWORD=sql -e POSTGRES_DB=db-bank-system-devops postgres:latest'
+                        sh 'docker run -d --name postgres --network system-bank-devops-network -p 5433:5432 -e POSTGRES_USER=userbanksystem -e POSTGRES_PASSWORD=sql -e POSTGRES_DB=db-bank-system-devops postgres:latest'
 
                         // Levantar contenedor de Redis
-                        sh 'docker run -d --name redis -p 6379:6379 redis:latest'
+                        sh 'docker run -d --name redis --network system-bank-devops-network -p 6379:6379 redis:latest'
                     }
                 }
             }
@@ -54,7 +59,7 @@ pipeline {
                     '''
                     // Ejecuta el contenedor Docker en segundo plano
                     // Se mapea el puerto 8081 del contenedor al puerto 8081 del host
-                    sh 'docker run -d -p 8081:8081 --name ${IMAGE_NAME} ${DOCKER_IMAGE}'
+                    sh 'docker run -d -p 8081:8081 --name ${IMAGE_NAME} --network system-bank-devops-network ${DOCKER_IMAGE} '
                 }
             }
         }
