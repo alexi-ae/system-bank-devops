@@ -16,6 +16,18 @@ pipeline {
         stage('Prepare Environment') {
                 steps {
                     script {
+                        sh '''
+                        if [ $(docker ps -q -f name=postgres) ]; then
+                            docker rm -f postgres
+                        fi
+                        '''
+
+                        sh '''
+                        if [ $(docker ps -q -f name=redis) ]; then
+                            docker rm -f redis
+                        fi
+                        '''
+
                         // Levantar contenedor de PostgreSQL
                         sh 'docker run -d --name postgres --network system-bank-devops-network -p 5433:5432 -e POSTGRES_USER=userbanksystem -e POSTGRES_PASSWORD=sql -e POSTGRES_DB=db-bank-system-devops postgres:latest'
 
