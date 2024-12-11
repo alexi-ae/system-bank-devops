@@ -6,12 +6,14 @@ pipeline {
         IMAGE_NAME = 'system-bank-devops-container'
     }
     stages {
-        stage('Prepare Environment') {
+        stage('Setup Network') {
                 steps {
                     script {
                         sh 'docker network create system-bank-devops-network || true'
                     }
                 }
+        }
+        stage('Prepare Environment') {
                 steps {
                     script {
                         // Levantar contenedor de PostgreSQL
