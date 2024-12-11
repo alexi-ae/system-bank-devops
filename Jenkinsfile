@@ -6,6 +6,17 @@ pipeline {
         IMAGE_NAME = 'system-bank-devops-container'
     }
     stages {
+        stage('Prepare Environment') {
+                steps {
+                    script {
+                        // Levantar contenedor de PostgreSQL
+                        sh 'docker run -d --name postgres -p 5432:5432 -e POSTGRES_USER=userbanksystem -e POSTGRES_PASSWORD=sql -e POSTGRES_DB=db-bank-system-devops postgres:latest'
+
+                        // Levantar contenedor de Redis
+                        sh 'docker run -d --name redis -p 6379:6379 redis:latest'
+                    }
+                }
+            }
         stage('Checkout') {
             steps {
                 // Clona el repositorio desde GitHub

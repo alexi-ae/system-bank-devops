@@ -1,11 +1,11 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/db-bank-system-devops
+    url: r2dbc:postgresql://postgres:5433/db-bank-system-devops
     username: userbanksystem
     password: sql
   data:
     redis:
-      host: localhost
+      host: redis
       port: 6379
       password: authdb
       timeout: 60000
