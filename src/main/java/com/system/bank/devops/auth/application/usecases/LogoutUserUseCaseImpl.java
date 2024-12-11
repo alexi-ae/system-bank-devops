@@ -21,7 +21,6 @@ public class LogoutUserUseCaseImpl implements LogoutUserUseCase {
     @Autowired
     private TokenPort tokenPort;
 
-
     @Override
     public Mono<Void> execute(String token) {
         if (token.startsWith("Bearer ")) {

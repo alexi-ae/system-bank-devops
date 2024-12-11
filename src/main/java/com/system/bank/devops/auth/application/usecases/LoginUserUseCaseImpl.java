@@ -10,8 +10,6 @@ import com.system.bank.devops.core.exception.ErrorReason;
 import com.system.bank.devops.core.exception.ErrorSource;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +27,6 @@ public class LoginUserUseCaseImpl implements LoginUserUseCase {
 
     @Autowired
     private ReactiveAuthenticationManager authenticationManager;
-
 
     @SneakyThrows
     @Override
@@ -50,19 +47,5 @@ public class LoginUserUseCaseImpl implements LoginUserUseCase {
                             .build();
                     return Mono.error(apiRestException);
                 });
-//                .onErrorResume( AuthenticationException.class, e -> Mono.error(new RuntimeException("Credenciales inválidas")));
-    }
-
-    private void authenticate(String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new Exception("USER_DISABLED", e);
-//            throw ApiRestException.builder().reason(ErrorReason.AUTHENTICATION_FAILED)
-//                    .source(ErrorSource.BUSINESS_SERVICE).build();
-        }
     }
 }
